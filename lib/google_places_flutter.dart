@@ -183,7 +183,8 @@ class _GooglePlaceAutoCompleteTextFieldState
       Overlay.of(context)!.insert(this._overlayEntry!);
     } catch (e) {
       var errorHandler = ErrorHandler.internal().handleError(e);
-      _showSnackBar("${errorHandler.message}");
+      print("errorHandler.message ${errorHandler.message}");
+      // _showSnackBar("${errorHandler.message}");
     }
   }
 
@@ -278,7 +279,8 @@ class _GooglePlaceAutoCompleteTextFieldState
       widget.getPlaceDetailWithLatLng!(prediction);
     } catch (e) {
       var errorHandler = ErrorHandler.internal().handleError(e);
-      _showSnackBar("${errorHandler.message}");
+      print("errorHandler.message ${errorHandler.message}");
+      // _showSnackBar("${errorHandler.message}");
     }
   }
 
