@@ -121,8 +121,9 @@ class _GooglePlaceAutoCompleteTextFieldState
   }
 
   getLocation(String text) async {
-    String apiURL =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$text&key=${widget.googleAPIKey}&language=${widget.language}";
+    String apiURL = !kIsWeb
+        ? "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$text&key=${widget.googleAPIKey}&language=${widget.language}"
+        : "https://apb.visperapp.com/pos/proxy/google-maps/autocomplete?input=$text&language=${widget.language}";
 
     if (widget.countries != null) {
       // in
@@ -146,10 +147,8 @@ class _GooglePlaceAutoCompleteTextFieldState
       _cancelToken = CancelToken();
     }
 
-    print("urlll $apiURL");
     try {
-      String proxyURL = "https://cors-anywhere.herokuapp.com/";
-      String url = kIsWeb ? proxyURL + apiURL : apiURL;
+      String url = apiURL;
 
       /// Add the custom header to the options
       final options = kIsWeb
@@ -262,8 +261,10 @@ class _GooglePlaceAutoCompleteTextFieldState
   Future<Response?> getPlaceDetailsFromPlaceId(Prediction prediction) async {
     //String key = GlobalConfiguration().getString('google_maps_key');
 
-    var url =
-        "https://maps.googleapis.com/maps/api/place/details/json?placeid=${prediction.placeId}&key=${widget.googleAPIKey}";
+    var url = !kIsWeb
+        ? "https://maps.googleapis.com/maps/api/place/details/json?placeid=${prediction.placeId}&key=${widget.googleAPIKey}"
+        : "https://apb.visperapp.com/pos/proxy/google-maps/details?placeid=${prediction.placeId}";
+
     try {
       Response response = await _dio.get(
         url,
