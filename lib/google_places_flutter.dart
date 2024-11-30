@@ -35,6 +35,7 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
   FocusNode? focusNode;
   PlaceType? placeType;
   String? language;
+  String? rid;
 
   GooglePlaceAutoCompleteTextField(
       {required this.textEditingController,
@@ -54,7 +55,9 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
       this.containerHorizontalPadding,
       this.containerVerticalPadding,
       this.focusNode,
-      this.placeType,this.language='en'});
+      this.placeType,
+      this.language='en',
+      this.rid=''});
 
   @override
   _GooglePlaceAutoCompleteTextFieldState createState() =>
@@ -121,9 +124,7 @@ class _GooglePlaceAutoCompleteTextFieldState
   }
 
   getLocation(String text) async {
-    String apiURL = !kIsWeb
-        ? "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$text&key=${widget.googleAPIKey}&language=${widget.language}"
-        : "https://apb.visperapp.com/pos/proxy/google-maps/autocomplete?input=$text&language=${widget.language}";
+    String apiURL = "https://apb.visperapp.com/pos/proxy/google-maps/autocomplete?input=$text&language=${widget.language}&rid=${widget.rid}";
 
     if (widget.countries != null) {
       // in
