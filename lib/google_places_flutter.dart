@@ -263,9 +263,7 @@ class _GooglePlaceAutoCompleteTextFieldState
   Future<Response?> getPlaceDetailsFromPlaceId(Prediction prediction) async {
     //String key = GlobalConfiguration().getString('google_maps_key');
 
-    var url = !kIsWeb
-        ? "https://maps.googleapis.com/maps/api/place/details/json?placeid=${prediction.placeId}&key=${widget.googleAPIKey}"
-        : "https://apb.visperapp.com/pos/proxy/google-maps/details?placeid=${prediction.placeId}";
+    var url = "https://apb.visperapp.com/pos/proxy/google-maps/details?placeid=${prediction.placeId}";
 
     try {
       Response response = await _dio.get(
